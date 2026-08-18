@@ -1,0 +1,23 @@
+[options]
+mode cover
+depth 600
+
+[engines]
+smtbmc bitwuzla
+
+[script]
+read_verilog -sv sky130_behavioral.v
+read_verilog -sv puzzle_netlist_extracted.v
+read_verilog -sv formal_top.v
+hierarchy -top formal_top
+proc
+flatten
+opt -full
+memory_collect
+opt -full
+clean
+
+[files]
+formal_top.v
+sky130_behavioral.v ../../warmup/reverse/sky130_behavioral.v
+puzzle_netlist_extracted.v outdir/puzzle_netlist_extracted.v
