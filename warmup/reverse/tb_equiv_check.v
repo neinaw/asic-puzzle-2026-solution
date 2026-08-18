@@ -71,26 +71,25 @@ module tb;
   integer mismatches = 0;
 
   initial begin
-    rst_n = 0;
-    en = 0;
-    A = 0;
-    B = 0;
+    rst_n <= 0;
+    en <= 0;
+    A <= 0;
+    B <= 0;
     repeat (4) @(posedge clk);
-    rst_n = 1;
+    rst_n <= 1;
 
     for (i = 0; i < 4000; i = i + 1) begin
       @(negedge clk);
-      en = $random % 2;
-      A  = $random % 2;
-      B  = $random % 2;
+      en <= $random % 2;
+      A  <= $random % 2;
+      B  <= $random % 2;
       // occasionally toggle reset to exercise rst_n path too
       if ((i % 137) == 0) begin
-        rst_n = 0;
+        rst_n <= 0;
       end else begin
-        rst_n = 1;
+        rst_n <= 1;
       end
       @(posedge clk);
-      #1;
       if (S_gold !== S_gate) begin
         mismatches = mismatches + 1;
         if (mismatches < 20)
