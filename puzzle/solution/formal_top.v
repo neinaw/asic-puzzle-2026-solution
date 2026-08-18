@@ -27,9 +27,11 @@ module formal_top (
   always @(posedge clk) begin
     if (rst_count < 2) rst_count <= rst_count + 1;
 
-    if (rst_count < 2)
+    if (rst_count < 2) begin
       assume (rst_n == 0);
-      else assume (rst_n == 1);
+    end else begin
+      assume (rst_n == 1);
+    end
 
     cover (success);
   end
